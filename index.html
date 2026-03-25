@@ -4,77 +4,113 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DATAMIND 2026 — Data Science Türkiye × VBT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --orange:   #F15A24;
       --orange-d: #C94B1C;
+      --orange-glow: rgba(241, 90, 36, .35);
       --navy:     #1A3C6B;
       --navy-d:   #0F2447;
       --blue:     #2563EB;
       --green:    #10B981;
       --red:      #EF4444;
-      --bg:       #F1F5F9;
+      --bg:       #EEF2F7;
+      --bg-pattern: radial-gradient(ellipse 120% 80% at 50% -20%, rgba(26, 60, 107, .06), transparent 55%),
+                    radial-gradient(ellipse 80% 50% at 100% 50%, rgba(241, 90, 36, .04), transparent 45%);
       --card:     #FFFFFF;
       --text:     #1E293B;
       --muted:    #64748B;
       --border:   #E2E8F0;
+      --radius-sm: 8px;
+      --radius:    12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 2px rgba(15, 36, 71, .04), 0 2px 8px rgba(15, 36, 71, .06);
+      --shadow-md: 0 4px 6px rgba(15, 36, 71, .05), 0 12px 32px rgba(15, 36, 71, .1);
+      --shadow-nav: 0 4px 24px rgba(8, 20, 45, .35);
+      --focus-ring: 0 0 0 3px rgba(37, 99, 235, .25);
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+      background-color: var(--bg);
+      background-image: var(--bg-pattern);
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* ── NAV ──────────────────────────────── */
     nav {
-      background: var(--navy-d);
+      background: linear-gradient(180deg, #132847 0%, var(--navy-d) 100%);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
+      padding: 0 clamp(1rem, 4vw, 2rem);
       position: sticky;
       top: 0;
       z-index: 200;
-      box-shadow: 0 2px 12px rgba(0,0,0,.4);
+      box-shadow: var(--shadow-nav);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
     .nav-logo {
       color: var(--orange);
-      font-size: 1.4rem;
-      font-weight: 900;
-      letter-spacing: 3px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: .12em;
       padding: 1rem 0;
       user-select: none;
     }
     .nav-logo span { color: #fff; }
     .nav-links { display: flex; }
     .nav-link {
-      color: rgba(255,255,255,.75);
-      padding: 1.15rem 1.3rem;
+      color: rgba(255,255,255,.72);
+      padding: 1.15rem 1.15rem;
       cursor: pointer;
       font-weight: 600;
-      font-size: .9rem;
+      font-size: .875rem;
       border-bottom: 3px solid transparent;
-      transition: color .2s, border-color .2s;
+      transition: color .2s, border-color .2s, background .2s;
       user-select: none;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
     }
-    .nav-link:hover  { color: #fff; }
-    .nav-link.active { color: var(--orange); border-bottom-color: var(--orange); }
-    .nav-admin-btn {
-      background: var(--orange);
+    .nav-link:hover  { color: #fff; background: rgba(255,255,255,.05); }
+    .nav-link.active { color: #fff; border-bottom-color: var(--orange); background: rgba(241, 90, 36, .08); }
+    .nav-actions { display: flex; align-items: center; gap: .45rem; flex-shrink: 0; }
+    .nav-door-btn {
+      background: linear-gradient(180deg, #14B882 0%, var(--green) 100%);
       color: #fff;
-      border: none;
-      padding: .45rem 1.1rem;
-      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.18);
+      padding: .5rem 1.05rem;
+      border-radius: var(--radius-sm);
       font-weight: 700;
-      font-size: .85rem;
+      font-size: .8rem;
       cursor: pointer;
-      transition: background .2s;
+      transition: transform .15s, box-shadow .2s, filter .2s;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, .35);
     }
-    .nav-admin-btn:hover { background: var(--orange-d); }
+    .nav-door-btn:hover { transform: translateY(-1px); filter: brightness(1.06); box-shadow: 0 4px 14px rgba(16, 185, 129, .4); }
+    .nav-admin-btn {
+      background: linear-gradient(180deg, #FF6B35 0%, var(--orange) 100%);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.2);
+      padding: .5rem 1.15rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: .82rem;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .2s, background .2s;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px var(--orange-glow);
+    }
+    .nav-admin-btn:hover { transform: translateY(-1px); background: linear-gradient(180deg, var(--orange) 0%, var(--orange-d) 100%); box-shadow: 0 4px 16px var(--orange-glow); }
 
     /* ── SECTIONS ─────────────────────────── */
     .section { display: none; min-height: calc(100vh - 58px); }
@@ -82,18 +118,44 @@
 
     /* ── SECTION HEADER ───────────────────── */
     .sec-header {
-      padding: 3rem 2rem 2.5rem;
+      padding: 2.75rem 1.5rem 2.25rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .sec-header.orange { background: var(--orange); }
-    .sec-header.navy   { background: var(--navy-d); }
+    .sec-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.06) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .sec-header.orange {
+      background: linear-gradient(135deg, #E85520 0%, var(--orange) 42%, #FF7A45 100%);
+    }
+    .sec-header.navy   {
+      background: linear-gradient(135deg, #0c1a32 0%, var(--navy-d) 50%, #152d52 100%);
+    }
     .sec-header h2 {
       color: #fff;
-      font-size: 1.9rem;
-      font-weight: 900;
-      letter-spacing: 3px;
+      font-size: clamp(1.45rem, 4vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: .08em;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 20px rgba(0,0,0,.15);
     }
-    .sec-header p { color: rgba(255,255,255,.8); margin-top: .35rem; font-size: .95rem; }
+    .sec-header p {
+      color: rgba(255,255,255,.88);
+      margin-top: .5rem;
+      font-size: .92rem;
+      max-width: 36rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.55;
+      position: relative;
+      z-index: 1;
+    }
 
     /* ── HOME ─────────────────────────────── */
     .hero {
@@ -340,10 +402,10 @@
     }
     .spk-card {
       background: var(--card);
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 1.4rem 1.4rem 1.4rem 1.4rem;
-      box-shadow: 0 1px 8px rgba(0,0,0,.06);
-      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(226, 232, 240, .95);
       display: flex;
       gap: 1rem;
       align-items: flex-start;
@@ -483,9 +545,9 @@
     .sched-card {
       flex: 1;
       background: var(--card);
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       padding: 1.1rem 1.4rem;
-      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      box-shadow: var(--shadow-sm);
       border-left: 4px solid var(--border);
     }
     .sched-card.session  { border-left-color: var(--orange); }
@@ -534,23 +596,26 @@
     .stab {
       padding: .55rem 1.15rem;
       border: 2px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       background: var(--card);
       cursor: pointer;
       font-weight: 600;
       font-size: .85rem;
       color: var(--muted);
-      transition: all .2s;
+      transition: border-color .2s, background .2s, color .2s, box-shadow .2s, transform .15s;
+      box-shadow: var(--shadow-sm);
     }
+    .stab:hover { border-color: #CBD5E1; transform: translateY(-1px); }
     .stab.open     { border-color: var(--green); color: var(--green); background: #F0FDF4; }
     .stab.selected { border-color: var(--navy); color: var(--navy); background: #EFF6FF; }
     .stab.open.selected { border-color: var(--green); color: var(--navy); background: #F0FDF4; }
 
     .att-card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       padding: 2rem;
-      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(226, 232, 240, .9);
     }
     .att-card h3  { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: .3rem; }
     .att-card .meta {
@@ -569,28 +634,35 @@
     }
     .form-group input {
       width: 100%;
-      padding: .7rem 1rem;
+      padding: .75rem 1.05rem;
       border: 2px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       font-size: .95rem;
       outline: none;
-      transition: border-color .2s;
+      transition: border-color .2s, box-shadow .2s;
+      background: #FAFBFC;
     }
-    .form-group input:focus { border-color: var(--blue); }
+    .form-group input:hover { border-color: #CBD5E1; }
+    .form-group input:focus {
+      border-color: var(--blue);
+      background: #fff;
+      box-shadow: var(--focus-ring);
+    }
     .submit-btn {
       width: 100%;
-      padding: .9rem;
-      background: var(--orange);
+      padding: .95rem;
+      background: linear-gradient(180deg, #FF6B35 0%, var(--orange) 100%);
       color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
       margin-top: .25rem;
-      transition: background .2s;
+      transition: transform .15s, box-shadow .2s, filter .2s;
+      box-shadow: 0 4px 14px var(--orange-glow);
     }
-    .submit-btn:hover    { background: var(--orange-d); }
+    .submit-btn:hover    { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 6px 20px var(--orange-glow); }
     .submit-btn:disabled { background: #94A3B8; cursor: not-allowed; }
     .msg-ok  { background: #F0FDF4; border: 1px solid #86EFAC; color: #166534; padding: .9rem; border-radius: 8px; text-align: center; font-weight: 600; margin-top: .75rem; }
     .msg-err { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; padding: .9rem; border-radius: 8px; text-align: center; font-weight: 600; margin-top: .75rem; }
@@ -607,18 +679,19 @@
       max-width: 420px;
       margin: 5rem auto;
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       padding: 2.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
       text-align: center;
     }
     .admin-login-wrap h2 { color: var(--navy); font-size: 1.4rem; font-weight: 800; margin-bottom: .35rem; }
     .admin-login-wrap p  { color: var(--muted); margin-bottom: 2rem; font-size: .9rem; }
 
     .admin-wrap {
-      max-width: 920px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
+      padding: 2.5rem clamp(1rem, 3vw, 1.5rem) 4rem;
     }
     .admin-top {
       display: flex;
@@ -628,27 +701,36 @@
     }
     .admin-top h2 { color: var(--navy); font-size: 1.2rem; font-weight: 800; }
     .logout-btn {
-      background: var(--red);
+      background: linear-gradient(180deg, #F87171 0%, var(--red) 100%);
       color: #fff;
-      border: none;
-      padding: .45rem 1.1rem;
-      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.2);
+      padding: .48rem 1.15rem;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-weight: 700;
-      font-size: .85rem;
+      font-size: .82rem;
+      transition: transform .15s, filter .2s, box-shadow .2s;
+      box-shadow: 0 2px 10px rgba(239, 68, 68, .25);
     }
+    .logout-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
 
     .admin-sess-card {
       background: var(--card);
-      border-radius: 12px;
+      border-radius: var(--radius);
       padding: 1.35rem 1.5rem;
       margin-bottom: .85rem;
-      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(226, 232, 240, .95);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       flex-wrap: wrap;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .admin-sess-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(241, 90, 36, .2);
     }
     .admin-sess-info h3 { font-size: .95rem; font-weight: 700; color: var(--navy); }
     .admin-sess-info p  { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
@@ -656,7 +738,16 @@
 
     .badge-active   { background: #D1FAE5; color: #065F46; padding: .25rem .75rem; border-radius: 50px; font-size: .75rem; font-weight: 700; }
     .badge-inactive { background: #F1F5F9; color: var(--muted); padding: .25rem .75rem; border-radius: 50px; font-size: .75rem; font-weight: 700; }
-    .count-badge    { background: var(--bg); color: var(--navy); padding: .4rem .9rem; border-radius: 8px; font-weight: 700; font-size: .85rem; }
+    .count-badge    {
+      background: linear-gradient(180deg, #fff 0%, #F8FAFC 100%);
+      color: var(--navy);
+      padding: .42rem .95rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .82rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
 
     .btn-activate   { background: var(--green); color: #fff; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: .85rem; cursor: pointer; transition: opacity .2s; }
     .btn-deactivate { background: var(--red);   color: #fff; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: .85rem; cursor: pointer; transition: opacity .2s; }
@@ -666,11 +757,13 @@
 
     /* Raffle box */
     .raffle-box {
-      background: linear-gradient(135deg, var(--navy-d), #173566);
-      border-radius: 16px;
-      padding: 2rem;
+      background: linear-gradient(145deg, #0a1628 0%, var(--navy-d) 38%, #1a4a7a 120%);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.85rem;
       color: #fff;
       margin-top: 2.5rem;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.08);
     }
     .raffle-box h2 { color: var(--orange); font-size: 1.4rem; font-weight: 900; margin-bottom: .25rem; }
     .raffle-box .sub { color: rgba(255,255,255,.6); font-size: .85rem; margin-bottom: 1.25rem; }
@@ -687,18 +780,314 @@
     .raffle-item .remail { color: rgba(255,255,255,.65); font-size: .82rem; }
     .raffle-item .tick { color: var(--orange); font-weight: 800; font-size: .85rem; }
     .export-btn {
-      background: var(--orange);
+      background: linear-gradient(180deg, #FF6B35 0%, var(--orange) 100%);
       color: #fff;
-      border: none;
-      padding: .7rem 1.5rem;
-      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.22);
+      padding: .72rem 1.45rem;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       font-weight: 700;
       margin-top: 1.25rem;
-      transition: background .2s;
+      transition: transform .15s, box-shadow .2s, filter .2s;
+      box-shadow: 0 2px 12px rgba(241, 90, 36, .35);
     }
-    .export-btn:hover { background: var(--orange-d); }
+    .export-btn:hover { filter: brightness(1.06); transform: translateY(-1px); box-shadow: 0 4px 18px rgba(241, 90, 36, .45); }
     .raffle-empty { color: rgba(255,255,255,.45); font-style: italic; padding: 1rem 0; }
+
+    /* Admin: kapı + çekiliş yan yana */
+    .admin-bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    .admin-bottom-grid .admin-door-panel { margin-bottom: 0; }
+
+    .admin-cekilis-strip {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 2px dashed rgba(15, 23, 42, .12);
+      text-align: center;
+    }
+    .admin-cekilis-heading {
+      margin: 0 0 .85rem;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: .02em;
+    }
+    .admin-cekilis-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .65rem;
+      padding: 1rem 2rem;
+      border-radius: var(--radius-lg);
+      border: none;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(145deg, #0a1628 0%, var(--navy-d) 45%, #1a4a7a 120%);
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+    .admin-cekilis-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md), 0 12px 32px rgba(241, 90, 36, .22);
+    }
+    .admin-cekilis-cta .ico { font-size: 1.35rem; line-height: 1; }
+
+    .admin-cekilis-page .admin-top { flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+    .admin-cekilis-back {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: .55rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .admin-cekilis-back:hover { background: var(--navy-d); transform: translateY(-1px); }
+    .admin-cekilis-title-block h2 { color: var(--navy); font-size: 1.35rem; font-weight: 800; margin: .35rem 0 .25rem; }
+    .admin-cekilis-title-block .meta { color: var(--muted); font-size: .88rem; margin: 0; }
+
+    .raffle-page-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.35rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .raffle-page-layout { grid-template-columns: 1fr; }
+    }
+
+    .raffle-page-list-panel {
+      background: linear-gradient(145deg, #0a1628 0%, var(--navy-d) 38%, #1a4a7a 120%);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.65rem;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .raffle-page-list-panel h3 {
+      color: var(--orange);
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin: 0 0 .55rem;
+    }
+    .raffle-pool-seg {
+      display: inline-flex;
+      margin: 0 0 .65rem;
+      border-radius: 7px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+      width: fit-content;
+      max-width: 100%;
+    }
+    .raffle-pool-seg button {
+      padding: .32rem .72rem;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      border: none;
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.62);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .raffle-pool-seg button:hover { color: #fff; background: rgba(255,255,255,.12); }
+    .raffle-pool-seg button.is-on {
+      background: rgba(241, 90, 36, .4);
+      color: #fff;
+    }
+    .raffle-pool-seg button:not(:last-child) { border-right: 1px solid rgba(255,255,255,.14); }
+    .raffle-page-list-panel .sub { color: rgba(255,255,255,.6); font-size: .82rem; margin: 0 0 1rem; }
+    .raffle-page-scroll {
+      max-height: 320px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding-right: .35rem;
+    }
+    .raffle-page-scroll::-webkit-scrollbar { width: 8px; }
+    .raffle-page-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,.25);
+      border-radius: 4px;
+    }
+
+    .raffle-draw-panel {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.65rem;
+      border: 1px solid rgba(226, 232, 240, .95);
+      box-shadow: var(--shadow-md);
+    }
+    .raffle-draw-panel label {
+      display: block;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: .88rem;
+      margin-bottom: .45rem;
+    }
+    .raffle-draw-count-input {
+      width: 100%;
+      max-width: 140px;
+      padding: .7rem .85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .raffle-draw-go {
+      width: 100%;
+      padding: .9rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .raffle-stage {
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #F8FAFC 0%, #EEF2F7 100%);
+      border: 2px dashed rgba(15, 23, 42, .12);
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .raffle-stage.spinning {
+      border-color: rgba(241, 90, 36, .45);
+      box-shadow: 0 0 0 3px rgba(241, 90, 36, .12);
+    }
+    .raffle-stage-name {
+      font-size: clamp(1.1rem, 3.5vw, 1.45rem);
+      font-weight: 800;
+      color: var(--navy);
+      text-align: center;
+      line-height: 1.3;
+      transition: transform .08s ease-out;
+    }
+    .raffle-stage.spinning .raffle-stage-name {
+      animation: rafflePulse .28s ease-in-out infinite alternate;
+    }
+    @keyframes rafflePulse {
+      from { transform: scale(1); opacity: .92; }
+      to   { transform: scale(1.03); opacity: 1; }
+    }
+
+    .raffle-results {
+      display: none;
+      flex-direction: column;
+      gap: .65rem;
+    }
+    .raffle-results.show { display: flex; }
+    .raffle-results-title {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--orange);
+      margin-bottom: .15rem;
+    }
+    .raffle-winner-card {
+      background: linear-gradient(180deg, #FFF7ED 0%, #FFEDD5 100%);
+      border: 1px solid rgba(241, 90, 36, .35);
+      border-radius: var(--radius-sm);
+      padding: .85rem 1rem;
+      opacity: 0;
+      transform: translateY(10px) scale(.98);
+      animation: raffleWinnerIn .55s cubic-bezier(.22, 1, .36, 1) forwards;
+      box-shadow: 0 4px 14px rgba(241, 90, 36, .15);
+    }
+    @keyframes raffleWinnerIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .raffle-winner-card .rank {
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: .2rem;
+    }
+    .raffle-winner-card .wname { font-weight: 800; color: var(--navy); font-size: 1rem; }
+    .raffle-winner-card .wmail { font-size: .82rem; color: var(--muted); margin-top: .15rem; }
+
+    .admin-door-panel {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(226, 232, 240, .95);
+    }
+    @media (max-width: 960px) {
+      .admin-bottom-grid { grid-template-columns: 1fr; }
+    }
+
+    .admin-door-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-bottom: .65rem;
+    }
+    .admin-door-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin: 0;
+      padding: .25rem .4rem .25rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: var(--navy);
+    }
+    .admin-door-toggle:hover { opacity: .85; }
+    .admin-door-toggle .door-chevron {
+      display: inline-block;
+      font-size: .65rem;
+      color: var(--orange);
+      transition: transform .2s ease;
+      line-height: 1;
+    }
+    .admin-door-panel.collapsed .door-chevron { transform: rotate(-90deg); }
+    .admin-door-panel.collapsed .admin-door-body { display: none; }
+    .admin-door-panel .admin-door-head-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .admin-door-scroll {
+      max-height: 340px;
+      overflow-y: auto;
+      font-size: .84rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: .5rem .65rem;
+      background: linear-gradient(180deg, #FAFBFC 0%, #F4F7FA 100%);
+      scrollbar-gutter: stable;
+    }
+    .admin-door-scroll::-webkit-scrollbar { width: 8px; }
+    .admin-door-scroll::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 4px; }
+    .admin-door-scroll::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .admin-door-scroll::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
     /* ── MODAL ────────────────────────────── */
     .modal-overlay {
@@ -713,12 +1102,13 @@
     .modal-overlay.open { display: flex; }
     .modal {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       padding: 2rem;
       width: 92%;
       max-width: 520px;
       max-height: 82vh;
       overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(15, 36, 71, .25), 0 0 0 1px rgba(0,0,0,.04);
     }
     .modal-head {
       display: flex;
@@ -756,14 +1146,17 @@
       pointer-events: none;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
-    .toast.ok  { background: var(--green); }
-    .toast.err { background: var(--red); }
+    .toast.ok  { background: linear-gradient(180deg, #22C58A 0%, var(--green) 100%); box-shadow: 0 8px 28px rgba(16, 185, 129, .35); }
+    .toast.err { background: linear-gradient(180deg, #F87171 0%, var(--red) 100%); box-shadow: 0 8px 28px rgba(239, 68, 68, .3); }
 
     @media (max-width: 600px) {
+      .nav-actions { flex-wrap: wrap; justify-content: flex-end; max-width: 42vw; }
+      .nav-door-btn, .nav-admin-btn { font-size: .72rem; padding: .4rem .65rem; }
       .nav-link { padding: 1rem .75rem; font-size: .82rem; }
       .sched-row { flex-direction: column; gap: .4rem; }
       .sched-time { min-width: unset; width: fit-content; }
       .admin-sess-card { flex-direction: column; align-items: flex-start; }
+      .raffle-page-scroll { max-height: 240px; }
     }
   </style>
 </head>
@@ -777,7 +1170,10 @@
     <div class="nav-link"        data-section="program" onclick="nav(this,'program')">Program</div>
     <div class="nav-link"        data-section="katilim" onclick="nav(this,'katilim')">Katılım</div>
   </div>
-  <button class="nav-admin-btn" onclick="openAdmin()">Admin</button>
+  <div class="nav-actions">
+    <button type="button" class="nav-door-btn" onclick="openDoor()">Kapı Kayıt</button>
+    <button type="button" class="nav-admin-btn" onclick="openAdmin()">Admin</button>
+  </div>
 </nav>
 
 <!-- ═══════════════════ HOME ═══════════════════ -->
@@ -1059,19 +1455,144 @@
 
   <!-- Panel -->
   <div id="admin-panel" style="display:none">
-    <div class="admin-wrap">
-      <div class="admin-top">
-        <h2>Oturumlar</h2>
-        <button class="logout-btn" onclick="doLogout()">Çıkış</button>
-      </div>
-      <div id="admin-sess-list">Yükleniyor…</div>
+    <div id="admin-dashboard">
+      <div class="admin-wrap">
+        <div class="admin-top">
+          <h2>Oturumlar</h2>
+          <button class="logout-btn" onclick="doLogout()">Çıkış</button>
+        </div>
+        <div id="admin-sess-list">Yükleniyor…</div>
 
-      <!-- Raffle -->
-      <div class="raffle-box">
-        <h2>🎁 Çekiliş Listesi</h2>
-        <p class="sub">5 oturumun hepsine katılan kişiler</p>
-        <div id="raffle-content"><p class="raffle-empty">Yükleniyor…</p></div>
-        <button class="export-btn" onclick="exportCSV()">⬇ CSV Olarak İndir</button>
+        <div class="admin-summary" style="display:flex;gap:.75rem;flex-wrap:wrap;margin:1.75rem 0 1rem;align-items:center">
+          <span class="count-badge" style="font-size:.88rem">🚪 Kapı kaydı (toplam): <strong id="admin-door-total">—</strong></span>
+          <span class="count-badge" style="font-size:.88rem">📋 Oturum formu (toplam): <strong id="admin-att-total">—</strong></span>
+        </div>
+
+        <div class="admin-bottom-grid" style="grid-template-columns:1fr">
+          <div class="admin-door-panel" id="admin-door-panel">
+            <div class="admin-door-header-row">
+              <button type="button" class="admin-door-toggle" data-admin-door-toggle onclick="toggleAdminDoorPanel()" aria-expanded="true" title="Liste alanını göster / gizle">
+                <span class="door-chevron" aria-hidden="true">▼</span>
+                <span class="admin-door-head-title">Kapı kayıt kayıtları</span>
+              </button>
+              <button type="button" class="export-btn" style="margin-top:0" onclick="exportDoorCSV()">⬇ Kapı CSV indir</button>
+            </div>
+            <div class="admin-door-body" id="admin-door-body">
+              <p class="meta" style="margin:0 0 .85rem">Girişte alınan ad / soyad / telefon · Önizleme: son 200 · Tamamı için CSV</p>
+              <div id="admin-door-list" class="admin-door-scroll"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-wrap admin-cekilis-strip">
+        <h3 class="admin-cekilis-heading">Çekiliş</h3>
+        <button type="button" class="admin-cekilis-cta" onclick="openAdminCekilisPage()">
+          <span class="ico" aria-hidden="true">🎁</span>
+          <span>Çekiliş sayfasına git</span>
+        </button>
+        <p class="meta" style="margin:.75rem 0 0;font-size:.82rem">Tüm oturumlara katılanlar — rastgele kazanan seçimi</p>
+      </div>
+    </div>
+
+    <div id="admin-cekilis-page" class="admin-cekilis-page" style="display:none">
+      <div class="admin-wrap admin-cekilis-inner">
+        <div class="admin-top">
+          <button type="button" class="admin-cekilis-back" onclick="closeAdminCekilisPage()">← Yönetim paneli</button>
+          <button class="logout-btn" onclick="doLogout()">Çıkış</button>
+        </div>
+        <div class="admin-cekilis-title-block">
+          <h2>Çekiliş</h2>
+          <p class="meta">Havuzu seçin · Rastgele çekim tarayıcıda yapılır</p>
+        </div>
+
+        <div class="raffle-page-layout">
+          <div class="raffle-page-list-panel">
+            <h3>Çekiliş listesi</h3>
+            <div class="raffle-pool-seg" role="tablist" aria-label="Çekiliş havuzu">
+              <button type="button" role="tab" data-raffle-pool="full" class="is-on" aria-selected="true"
+                title="Tüm oturumlara kayıt olanlar" onclick="setRafflePoolMode('full')">5/5</button>
+              <button type="button" role="tab" data-raffle-pool="all" aria-selected="false"
+                title="Formdaki tüm benzersiz katılımcılar" onclick="setRafflePoolMode('all')">Tümü</button>
+            </div>
+            <p class="sub" id="raffle-page-sub">—</p>
+            <div id="raffle-page-list" class="raffle-page-scroll"><p class="raffle-empty">Yükleniyor…</p></div>
+            <button type="button" class="export-btn" onclick="exportCSV()">⬇ CSV Olarak İndir</button>
+          </div>
+
+          <div class="raffle-draw-panel">
+            <label for="raffle-draw-count">Kaç kişi çekilecek?</label>
+            <input type="number" id="raffle-draw-count" class="raffle-draw-count-input" min="1" value="1" />
+            <button type="button" id="raffle-draw-btn" class="submit-btn raffle-draw-go" onclick="runRaffleDraw()">Çekilişi başlat</button>
+
+            <div id="raffle-stage" class="raffle-stage" aria-live="polite">
+              <div id="raffle-stage-name" class="raffle-stage-name"></div>
+            </div>
+
+            <div id="raffle-results" class="raffle-results"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ KAPI KAYIT (görevliler) ═══════════════════ -->
+<section id="s-door" class="section">
+  <div class="sec-header orange">
+    <h2>KAPI KAYIT</h2>
+    <p>Girişte gelen katılımcıların ad, soyad ve telefon bilgisini kaydedin</p>
+  </div>
+
+  <div id="door-login">
+    <div class="admin-login-wrap">
+      <h2>🚪 Kapı Kayıt Girişi</h2>
+      <p>Supabase’te size atanmış kapı görevlisi hesabı ile giriş yapın (e-posta + şifre).</p>
+      <div class="form-group">
+        <label>E-posta</label>
+        <input type="email" id="door-email" placeholder="kapi@ornek.com" required
+               onkeydown="if(event.key==='Enter')doLoginDoor()" />
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="door-pw-input" placeholder="Şifre" required
+               onkeydown="if(event.key==='Enter')doLoginDoor()" />
+      </div>
+      <button type="button" class="submit-btn" onclick="doLoginDoor()">Giriş Yap</button>
+      <div id="door-login-err" class="msg-err" style="display:none;margin-top:.75rem">Giriş başarısız!</div>
+    </div>
+  </div>
+
+  <div id="door-panel" style="display:none">
+    <div class="katilim-wrap">
+      <div class="admin-top" style="max-width:700px;margin:0 auto 1.25rem;padding:0 0 0">
+        <h2 style="font-size:1rem;font-weight:800;color:var(--navy)">Kayıt formu</h2>
+        <button type="button" class="logout-btn" onclick="doLogoutDoor()">Çıkış</button>
+      </div>
+      <div class="att-card" style="max-width:700px;margin:0 auto 2rem">
+        <h3>Yeni kayıt</h3>
+        <p class="meta">Katılımcıdan aldığınız bilgileri girin; kayıt veritabanına yazılır.</p>
+        <form id="door-form" onsubmit="submitDoorForm(event)">
+          <div class="form-group">
+            <label>Ad *</label>
+            <input type="text" id="door-fname" placeholder="Ad" required />
+          </div>
+          <div class="form-group">
+            <label>Soyad *</label>
+            <input type="text" id="door-lname" placeholder="Soyad" required />
+          </div>
+          <div class="form-group">
+            <label>Telefon *</label>
+            <input type="tel" id="door-phone" placeholder="05xx xxx xx xx" required autocomplete="tel" />
+          </div>
+          <button type="submit" class="submit-btn" id="door-submit-btn">Kaydı Kaydet</button>
+          <div id="door-form-msg"></div>
+        </form>
+      </div>
+      <div class="att-card" style="max-width:700px;margin:0 auto 3rem">
+        <h3>Son kayıtlar</h3>
+        <p class="meta">En son eklenen 50 kayıt (yeniden eskiye)</p>
+        <div id="door-recent-list" style="font-size:.875rem;color:var(--muted)">Yükleniyor…</div>
       </div>
     </div>
   </div>
@@ -1104,9 +1625,34 @@ const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let sessions       = [];
 let selSessionId   = null;
 let isAdmin        = false;
+let isDoorStaff    = false;
 let rafflePeople   = [];
+let raffleAnimToken = 0;
+/** @type {'full'|'all'} */
+let rafflePoolMode = 'full';
+/** @type {{ map: Record<string, { fn: string, ln: string, ids: Set<number> }>, totalSessions: number } | null} */
+let raffleDataCache = null;
 
 // ─── Navigation ──────────────────────────────────────────────
+function resetAdminSubView() {
+  raffleAnimToken++;
+  const cek = document.getElementById('admin-cekilis-page');
+  const dash = document.getElementById('admin-dashboard');
+  if (cek) cek.style.display = 'none';
+  if (dash) dash.style.display = 'block';
+  const stage = document.getElementById('raffle-stage');
+  const nameEl = document.getElementById('raffle-stage-name');
+  const results = document.getElementById('raffle-results');
+  const btn = document.getElementById('raffle-draw-btn');
+  if (stage) stage.classList.remove('spinning');
+  if (nameEl) nameEl.textContent = '';
+  if (results) {
+    results.classList.remove('show');
+    results.innerHTML = '';
+  }
+  if (btn) btn.disabled = false;
+}
+
 function goTo(name) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -1115,7 +1661,11 @@ function goTo(name) {
   if (link) link.classList.add('active');
   window.scrollTo(0, 0);
   if (name === 'katilim') initKatilim();
-  if (name === 'admin' && isAdmin) loadAdminPanel();
+  if (name === 'admin' && isAdmin) {
+    resetAdminSubView();
+    loadAdminPanel();
+  }
+  if (name === 'door' && isDoorStaff) loadDoorRecent();
 }
 
 function nav(el, name) {
@@ -1124,15 +1674,28 @@ function nav(el, name) {
   document.getElementById('s-' + name).classList.add('active');
   el.classList.add('active');
   if (name === 'katilim') initKatilim();
-  if (name === 'admin' && isAdmin) loadAdminPanel();
+  if (name === 'admin' && isAdmin) {
+    resetAdminSubView();
+    loadAdminPanel();
+  }
+  if (name === 'door' && isDoorStaff) loadDoorRecent();
 }
 
 function openAdmin() {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
   document.getElementById('s-admin').classList.add('active');
+  resetAdminSubView();
   setAdminUI(isAdmin);
   if (isAdmin) loadAdminPanel();
+}
+
+function openDoor() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('s-door').classList.add('active');
+  setDoorUI(isDoorStaff);
+  if (isDoorStaff) loadDoorRecent();
 }
 
 // ─── Sessions loader ─────────────────────────────────────────
@@ -1258,29 +1821,59 @@ function setAdminUI(showPanel) {
   document.getElementById('admin-panel').style.display  = showPanel ? 'block' : 'none';
 }
 
-async function checkAdminRole(userId) {
+function setDoorUI(showPanel) {
+  document.getElementById('door-login').style.display  = showPanel ? 'none' : 'block';
+  document.getElementById('door-panel').style.display  = showPanel ? 'block' : 'none';
+}
+
+async function getStaffRole(userId) {
   const { data, error } = await db
     .from('user_roles')
     .select('role')
     .eq('user_id', userId)
     .single();
-  if (error) return false;
-  return data?.role === 'admin';
+  if (error) return null;
+  return data?.role ?? null;
+}
+
+function roleCanAdmin(role) {
+  return role === 'admin';
+}
+
+function roleCanDoor(role) {
+  return role === 'door' || role === 'admin';
+}
+
+async function applyStaffSession(user) {
+  const role = user ? await getStaffRole(user.id) : null;
+  isAdmin = roleCanAdmin(role);
+  isDoorStaff = roleCanDoor(role);
+  setAdminUI(isAdmin);
+  setDoorUI(isDoorStaff);
+
+  if (isAdmin && document.getElementById('s-admin').classList.contains('active')) {
+    await loadAdminPanel();
+  }
+  if (isDoorStaff && document.getElementById('s-door').classList.contains('active')) {
+    await loadDoorRecent();
+  }
 }
 
 async function initAuth() {
   isAdmin = false;
+  isDoorStaff = false;
   setAdminUI(false);
+  setDoorUI(false);
 
   try {
     const { data: { user } } = await db.auth.getUser();
     if (!user) return;
-
-    isAdmin = await checkAdminRole(user.id);
-    setAdminUI(isAdmin);
+    await applyStaffSession(user);
   } catch (e) {
     isAdmin = false;
+    isDoorStaff = false;
     setAdminUI(false);
+    setDoorUI(false);
   }
 }
 
@@ -1303,26 +1896,21 @@ async function doLogin() {
     return;
   }
 
-  const admin = await checkAdminRole(data.user.id);
-  if (!admin) {
+  const role = await getStaffRole(data.user.id);
+  if (!roleCanAdmin(role)) {
     await db.auth.signOut();
-    isAdmin = false;
-    setAdminUI(false);
+    await applyStaffSession(null);
     el.textContent = 'Bu hesap admin değil.';
     el.style.display = 'block';
     setTimeout(() => el.style.display = 'none', 2500);
     return;
   }
 
-  isAdmin = true;
-  setAdminUI(true);
   document.getElementById('pw-input').value = '';
-  await loadAdminPanel();
+  await applyStaffSession(data.user);
 }
 
 async function doLogout() {
-  isAdmin = false;
-  setAdminUI(false);
   document.getElementById('pw-input').value = '';
   document.getElementById('admin-email').value = '';
 
@@ -1331,12 +1919,246 @@ async function doLogout() {
   } catch (e) {
     // Ignore
   }
+  isAdmin = false;
+  isDoorStaff = false;
+  resetAdminSubView();
+  setAdminUI(false);
+  setDoorUI(false);
+}
+
+async function doLoginDoor() {
+  const email = document.getElementById('door-email').value.trim().toLowerCase();
+  const pw = document.getElementById('door-pw-input').value;
+  const el = document.getElementById('door-login-err');
+
+  el.style.display = 'none';
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password: pw
+  });
+
+  if (error || !data?.user) {
+    el.textContent = 'Giriş başarısız! Email veya şifreyi kontrol edin.';
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2500);
+    return;
+  }
+
+  const role = await getStaffRole(data.user.id);
+  if (!roleCanDoor(role)) {
+    await db.auth.signOut();
+    await applyStaffSession(null);
+    el.textContent = 'Bu hesap kapı kayıt yetkisine sahip değil.';
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2800);
+    return;
+  }
+
+  await applyStaffSession(data.user);
+  document.getElementById('door-pw-input').value = '';
+}
+
+async function doLogoutDoor() {
+  document.getElementById('door-pw-input').value = '';
+  document.getElementById('door-email').value = '';
+
+  try {
+    await db.auth.signOut();
+  } catch (e) {
+    // Ignore
+  }
+  isAdmin = false;
+  isDoorStaff = false;
+  setAdminUI(false);
+  setDoorUI(false);
+}
+
+async function loadDoorRecent() {
+  const box = document.getElementById('door-recent-list');
+  const { data, error } = await db
+    .from('door_checkins')
+    .select('first_name,last_name,phone,created_at')
+    .order('created_at', { ascending: false })
+    .limit(50);
+
+  if (error) {
+    box.innerHTML = `<span style="color:var(--red)">Liste yüklenemedi: ${escDoorMsg(error.message)}</span>`;
+    return;
+  }
+
+  const rows = data || [];
+  if (!rows.length) {
+    box.innerHTML = '<p style="color:var(--muted);font-style:italic">Henüz kayıt yok.</p>';
+    return;
+  }
+
+  box.innerHTML = rows.map((r, i) => {
+    const t = r.created_at ? new Date(r.created_at).toLocaleString('tr-TR') : '';
+    return `
+      <div class="att-row" style="flex-direction:column;align-items:flex-start;gap:.25rem">
+        <div><span class="idx">${i + 1}.</span><strong>${escDoorMsg(r.first_name)} ${escDoorMsg(r.last_name)}</strong></div>
+        <div class="mail">${escDoorMsg(r.phone)}${t ? ` · ${escDoorMsg(t)}` : ''}</div>
+      </div>`;
+  }).join('');
+}
+
+async function submitDoorForm(e) {
+  e.preventDefault();
+  const fname = document.getElementById('door-fname').value.trim();
+  const lname = document.getElementById('door-lname').value.trim();
+  const phone = document.getElementById('door-phone').value.trim();
+  const btn = document.getElementById('door-submit-btn');
+  const msg = document.getElementById('door-form-msg');
+
+  btn.disabled = true;
+  btn.textContent = 'Kaydediliyor…';
+
+  const { data: { user } } = await db.auth.getUser();
+  const { error } = await db.from('door_checkins').insert({
+    first_name: fname,
+    last_name: lname,
+    phone,
+    registered_by: user?.id ?? null
+  });
+
+  if (error) {
+    msg.innerHTML = `<div class="msg-err">Kayıt oluşturulamadı. Oturum veya yetkiyi kontrol edin.</div>`;
+    btn.disabled = false;
+    btn.textContent = 'Kaydı Kaydet';
+    return;
+  }
+
+  msg.innerHTML = '<div class="msg-ok">✅ Kayıt alındı.</div>';
+  document.getElementById('door-fname').value = '';
+  document.getElementById('door-lname').value = '';
+  document.getElementById('door-phone').value = '';
+  btn.textContent = '✓ Kaydedildi';
+  await loadDoorRecent();
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = 'Kaydı Kaydet';
+    msg.innerHTML = '';
+  }, 2200);
+}
+
+function escDoorMsg(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 async function loadAdminPanel() {
   await fetchSessions();
   await renderAdminList();
+  await loadAdminDoorSection();
   await loadRaffle();
+}
+
+function toggleAdminDoorPanel() {
+  const p = document.getElementById('admin-door-panel');
+  if (!p) return;
+  p.classList.toggle('collapsed');
+  const btn = document.querySelector('[data-admin-door-toggle]');
+  const expanded = !p.classList.contains('collapsed');
+  if (btn) btn.setAttribute('aria-expanded', String(expanded));
+}
+
+async function loadAdminDoorSection() {
+  const totalEl = document.getElementById('admin-door-total');
+  const attEl = document.getElementById('admin-att-total');
+  const listEl = document.getElementById('admin-door-list');
+  if (!totalEl || !listEl) return;
+
+  const [{ count: doorCount, error: e1 }, { count: attCount, error: e2 }] = await Promise.all([
+    db.from('door_checkins').select('*', { count: 'exact', head: true }),
+    db.from('attendances').select('*', { count: 'exact', head: true })
+  ]);
+
+  totalEl.textContent = e1 ? '?' : String(doorCount ?? 0);
+  if (attEl) attEl.textContent = e2 ? '?' : String(attCount ?? 0);
+
+  const { data, error } = await db
+    .from('door_checkins')
+    .select('first_name,last_name,phone,created_at,registered_by')
+    .order('created_at', { ascending: false })
+    .limit(200);
+
+  if (error) {
+    listEl.innerHTML = `<span style="color:var(--red)">${escDoorMsg(error.message)}</span>`;
+    return;
+  }
+
+  const rows = data || [];
+  if (!rows.length) {
+    listEl.innerHTML = '<p style="color:var(--muted);font-style:italic;margin:.5rem 0;text-align:center">Henüz kapı kaydı yok.</p>';
+    return;
+  }
+
+  listEl.innerHTML = rows.map((r, i) => {
+    const t = r.created_at ? new Date(r.created_at).toLocaleString('tr-TR') : '';
+    const by = r.registered_by ? `${String(r.registered_by).slice(0, 8)}…` : '—';
+    return `
+      <div class="att-row" style="flex-direction:column;align-items:flex-start;gap:.2rem;padding:.5rem 0;border-bottom:1px solid var(--border)">
+        <div><span class="idx">${i + 1}.</span><strong>${escDoorMsg(r.first_name)} ${escDoorMsg(r.last_name)}</strong></div>
+        <div class="mail">${escDoorMsg(r.phone)} · ${escDoorMsg(t)} · görevli: ${by}</div>
+      </div>`;
+  }).join('');
+}
+
+function csvEscapeDoor(val) {
+  if (val == null || val === '') return '';
+  const s = String(val);
+  if (/[",\n\r]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+  return s;
+}
+
+async function exportDoorCSV() {
+  const rows = [];
+  const pageSize = 1000;
+  let from = 0;
+  while (true) {
+    const { data, error } = await db
+      .from('door_checkins')
+      .select('first_name,last_name,phone,created_at,registered_by')
+      .order('created_at', { ascending: true })
+      .range(from, from + pageSize - 1);
+    if (error) {
+      toast('CSV: ' + error.message, 'err');
+      return;
+    }
+    if (!data?.length) break;
+    rows.push(...data);
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  if (!rows.length) {
+    toast('Kapı kaydı yok', 'err');
+    return;
+  }
+
+  const header = 'Ad,Soyad,Telefon,Tarih,GorevliUUID';
+  const body = rows.map(r => {
+    const t = r.created_at ? new Date(r.created_at).toISOString() : '';
+    return [
+      csvEscapeDoor(r.first_name),
+      csvEscapeDoor(r.last_name),
+      csvEscapeDoor(r.phone),
+      csvEscapeDoor(t),
+      csvEscapeDoor(r.registered_by || '')
+    ].join(',');
+  }).join('\n');
+  const csv = header + '\n' + body;
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' })),
+    download: 'datamind_kapi_kayit.csv'
+  });
+  a.click();
+  toast('Kapı kayıt CSV indirildi', 'ok');
 }
 
 async function renderAdminList() {
@@ -1394,8 +2216,112 @@ function closeModal() {
   document.getElementById('modal').classList.remove('open');
 }
 
+function cmpRafflePerson(a, b) {
+  const sa = `${a.fn} ${a.ln} ${a.email}`.toLocaleLowerCase('tr');
+  const sb = `${b.fn} ${b.ln} ${b.email}`.toLocaleLowerCase('tr');
+  return sa.localeCompare(sb, 'tr');
+}
+
+function buildRafflePeopleFromCache() {
+  if (!raffleDataCache?.map) return [];
+  const { map, totalSessions } = raffleDataCache;
+  const entries = Object.entries(map);
+  if (rafflePoolMode === 'full') {
+    return entries
+      .filter(([, v]) => v.ids.size === totalSessions)
+      .map(([email, v]) => ({ email, fn: v.fn, ln: v.ln, sc: totalSessions, total: totalSessions }))
+      .sort(cmpRafflePerson);
+  }
+  return entries
+    .map(([email, v]) => ({ email, fn: v.fn, ln: v.ln, sc: v.ids.size, total: totalSessions }))
+    .sort(cmpRafflePerson);
+}
+
+function syncRafflePoolButtons() {
+  document.querySelectorAll('[data-raffle-pool]').forEach(btn => {
+    const on = btn.getAttribute('data-raffle-pool') === rafflePoolMode;
+    btn.classList.toggle('is-on', on);
+    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+}
+
+function clearRaffleDrawOutput() {
+  raffleAnimToken++;
+  const stage = document.getElementById('raffle-stage');
+  const nameEl = document.getElementById('raffle-stage-name');
+  const results = document.getElementById('raffle-results');
+  const btn = document.getElementById('raffle-draw-btn');
+  if (stage) stage.classList.remove('spinning');
+  if (nameEl) nameEl.textContent = '';
+  if (results) {
+    results.classList.remove('show');
+    results.innerHTML = '';
+  }
+  if (btn) btn.disabled = false;
+}
+
+function setRafflePoolMode(mode) {
+  if (mode !== 'full' && mode !== 'all') return;
+  rafflePoolMode = mode;
+  syncRafflePoolButtons();
+  clearRaffleDrawOutput();
+  renderRaffleList();
+}
+
+function renderRaffleList() {
+  syncRafflePoolButtons();
+  rafflePeople = buildRafflePeopleFromCache();
+
+  const subEl = document.getElementById('raffle-page-sub');
+  const box = document.getElementById('raffle-page-list');
+  const total = raffleDataCache?.totalSessions ?? 0;
+  const mapEmpty = !raffleDataCache?.map || Object.keys(raffleDataCache.map).length === 0;
+
+  if (subEl) {
+    if (!total) subEl.textContent = '—';
+    else if (rafflePoolMode === 'full') {
+      subEl.textContent = `Tüm ${total} oturuma kayıt · ${rafflePeople.length} kişi`;
+    } else {
+      subEl.textContent = `Benzersiz katılımcı · ${rafflePeople.length} kişi`;
+    }
+  }
+
+  if (!box) return;
+
+  if (mapEmpty) {
+    box.innerHTML = '<p class="raffle-empty">Henüz oturum formu kaydı yok.</p>';
+    return;
+  }
+
+  if (!rafflePeople.length) {
+    if (rafflePoolMode === 'full') {
+      box.innerHTML = '<p class="raffle-empty">Tam katılım yok. Düşük katılımda «Tümü» kullanılabilir.</p>';
+    } else {
+      box.innerHTML = '<p class="raffle-empty">Liste boş.</p>';
+    }
+    return;
+  }
+
+  box.innerHTML = rafflePeople.map((p, i) => {
+    const tick = p.sc === p.total ? `✓ ${p.sc}/${p.total}` : `${p.sc}/${p.total}`;
+    return `
+      <div class="raffle-item">
+        <div>
+          <div class="rname">${i + 1}. ${escRaffleHtml(p.fn)} ${escRaffleHtml(p.ln)}</div>
+          <div class="remail">${escRaffleHtml(p.email)}</div>
+        </div>
+        <div class="tick">${tick}</div>
+      </div>`;
+  }).join('');
+}
+
 async function loadRaffle() {
-  if (!sessions.length) return;
+  if (!sessions.length) await fetchSessions();
+  if (!sessions.length) {
+    raffleDataCache = null;
+    renderRaffleList();
+    return;
+  }
   const total = sessions.length;
   const { data } = await db.from('attendances').select('first_name,last_name,email,session_id');
   if (!data) return;
@@ -1406,32 +2332,154 @@ async function loadRaffle() {
     map[r.email].ids.add(r.session_id);
   });
 
-  rafflePeople = Object.entries(map)
-    .filter(([, v]) => v.ids.size === total)
-    .map(([email, v]) => ({ email, fn: v.fn, ln: v.ln }));
+  raffleDataCache = { map, totalSessions: total };
+  renderRaffleList();
+}
 
-  const box = document.getElementById('raffle-content');
-  if (!rafflePeople.length) {
-    box.innerHTML = '<p class="raffle-empty">Henüz tüm oturumlara katılan kişi yok.</p>';
-  } else {
-    box.innerHTML = rafflePeople.map((p, i) => `
-      <div class="raffle-item">
-        <div>
-          <div class="rname">${i+1}. ${p.fn} ${p.ln}</div>
-          <div class="remail">${p.email}</div>
-        </div>
-        <div class="tick">✓ ${total}/${total}</div>
-      </div>`).join('');
+function escRaffleHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function randomIntBelow(n) {
+  if (n <= 0) return 0;
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  return buf[0] % n;
+}
+
+function sampleWithoutReplacement(arr, k) {
+  const copy = arr.slice();
+  const out = [];
+  const take = Math.min(k, copy.length);
+  for (let i = 0; i < take; i++) {
+    const j = randomIntBelow(copy.length);
+    out.push(copy.splice(j, 1)[0]);
   }
+  return out;
+}
+
+async function openAdminCekilisPage() {
+  raffleAnimToken++;
+  const stage = document.getElementById('raffle-stage');
+  const nameEl = document.getElementById('raffle-stage-name');
+  const results = document.getElementById('raffle-results');
+  const btn = document.getElementById('raffle-draw-btn');
+  if (stage) stage.classList.remove('spinning');
+  if (nameEl) nameEl.textContent = '';
+  if (results) {
+    results.classList.remove('show');
+    results.innerHTML = '';
+  }
+  if (btn) btn.disabled = false;
+
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('admin-cekilis-page').style.display = 'block';
+  window.scrollTo(0, 0);
+  await loadRafflePage();
+}
+
+async function loadRafflePage() {
+  await fetchSessions();
+  await loadRaffle();
+}
+
+function closeAdminCekilisPage() {
+  resetAdminSubView();
+  window.scrollTo(0, 0);
+  loadAdminPanel();
+}
+
+function runRaffleDraw() {
+  const countInput = document.getElementById('raffle-draw-count');
+  const n = parseInt(countInput?.value, 10);
+  if (!rafflePeople.length) {
+    toast('Çekiliş listesi boş', 'err');
+    return;
+  }
+  if (!Number.isFinite(n) || n < 1) {
+    toast('Geçerli bir adet girin (en az 1)', 'err');
+    return;
+  }
+  const pick = Math.min(n, rafflePeople.length);
+  if (n > rafflePeople.length) {
+    toast(`Listede ${rafflePeople.length} kişi var; bu kadar çekiliyor.`, 'ok');
+  }
+
+  const myToken = ++raffleAnimToken;
+  const winners = sampleWithoutReplacement(rafflePeople, pick);
+
+  const stage = document.getElementById('raffle-stage');
+  const nameEl = document.getElementById('raffle-stage-name');
+  const results = document.getElementById('raffle-results');
+  const btn = document.getElementById('raffle-draw-btn');
+
+  results.classList.remove('show');
+  results.innerHTML = '';
+  nameEl.textContent = '';
+  stage.classList.add('spinning');
+  btn.disabled = true;
+
+  const duration = 3400;
+  const t0 = performance.now();
+  let lastFlash = t0 - 300;
+  let flashIdx = -1;
+
+  function frame(now) {
+    if (raffleAnimToken !== myToken) return;
+
+    const elapsed = now - t0;
+    const progress = Math.min(elapsed / duration, 1);
+
+    if (progress >= 1) {
+      stage.classList.remove('spinning');
+      nameEl.textContent = '';
+      results.innerHTML = `
+        <div class="raffle-results-title">Kazananlar</div>
+        ${winners.map((p, i) => `
+          <div class="raffle-winner-card" style="animation-delay: ${i * 0.14}s">
+            <div class="rank">#${i + 1}</div>
+            <div class="wname">${escRaffleHtml(p.fn)} ${escRaffleHtml(p.ln)}</div>
+            <div class="wmail">${escRaffleHtml(p.email)}</div>
+          </div>
+        `).join('')}
+      `;
+      results.classList.add('show');
+      btn.disabled = false;
+      toast('Çekiliş tamamlandı!', 'ok');
+      return;
+    }
+
+    const gap = 40 + progress * progress * 420;
+    if (now - lastFlash >= gap) {
+      lastFlash = now;
+      let idx = randomIntBelow(rafflePeople.length);
+      if (rafflePeople.length > 1) {
+        let guard = 0;
+        while (idx === flashIdx && guard++ < 8) idx = randomIntBelow(rafflePeople.length);
+      }
+      flashIdx = idx;
+      const p = rafflePeople[idx];
+      nameEl.textContent = `${p.fn} ${p.ln}`;
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
 }
 
 function exportCSV() {
   if (!rafflePeople.length) { toast('Çekiliş listesi boş', 'err'); return; }
-  const csv = 'Ad,Soyad,E-posta\n' +
-    rafflePeople.map(p => `${p.fn},${p.ln},${p.email}`).join('\n');
+  const csv = 'Ad,Soyad,E-posta,OturumSayisi\n' +
+    rafflePeople.map(p => `${p.fn},${p.ln},${p.email},${p.sc}`).join('\n');
+  const slug = rafflePoolMode === 'full' ? 'tam' : 'tumu';
   const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })),
-    download: 'datamind_cekilis.csv'
+    href: URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' })),
+    download: `datamind_cekilis_${slug}.csv`
   });
   a.click();
 }
