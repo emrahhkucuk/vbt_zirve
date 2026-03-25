@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DATAMIND 2026 — Data Science Türkiye × VBT</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange:   #F15A24;
+      --orange-d: #C94B1C;
+      --navy:     #1A3C6B;
+      --navy-d:   #0F2447;
+      --blue:     #2563EB;
+      --green:    #10B981;
+      --red:      #EF4444;
+      --bg:       #F1F5F9;
+      --card:     #FFFFFF;
+      --text:     #1E293B;
+      --muted:    #64748B;
+      --border:   #E2E8F0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ──────────────────────────────── */
+    nav {
+      background: var(--navy-d);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,.4);
+    }
+    .nav-logo {
+      color: var(--orange);
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      padding: 1rem 0;
+      user-select: none;
+    }
+    .nav-logo span { color: #fff; }
+    .nav-links { display: flex; }
+    .nav-link {
+      color: rgba(255,255,255,.75);
+      padding: 1.15rem 1.3rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+      user-select: none;
+    }
+    .nav-link:hover  { color: #fff; }
+    .nav-link.active { color: var(--orange); border-bottom-color: var(--orange); }
+    .nav-admin-btn {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .45rem 1.1rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .nav-admin-btn:hover { background: var(--orange-d); }
+
+    /* ── SECTIONS ─────────────────────────── */
+    .section { display: none; min-height: calc(100vh - 58px); }
+    .section.active { display: block; }
+
+    /* ── SECTION HEADER ───────────────────── */
+    .sec-header {
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+    .sec-header.orange { background: var(--orange); }
+    .sec-header.navy   { background: var(--navy-d); }
+    .sec-header h2 {
+      color: #fff;
+      font-size: 1.9rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+    .sec-header p { color: rgba(255,255,255,.8); margin-top: .35rem; font-size: .95rem; }
+
+    /* ── HOME ─────────────────────────────── */
+    .hero {
+      background: var(--navy-d);
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 2rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 88vh;
+    }
+    /* Subtle grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Animated gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 560px; height: 560px;
+      background: rgba(241,90,36,.22);
+      top: -160px; right: -120px;
+      animation: blobA 9s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 440px; height: 440px;
+      background: rgba(37,99,235,.16);
+      bottom: -100px; left: -100px;
+      animation: blobB 11s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 320px; height: 320px;
+      background: rgba(241,90,36,.1);
+      top: 50%; left: 45%;
+      transform: translate(-50%,-50%);
+      animation: blobC 7s ease-in-out infinite;
+    }
+    @keyframes blobA {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(-20px,15px) scale(1.06); }
+    }
+    @keyframes blobB {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50%      { transform: translate(18px,-12px) scale(1.04); }
+    }
+    @keyframes blobC {
+      0%,100% { transform: translate(-50%,-50%) scale(1); }
+      50%      { transform: translate(-50%,-50%) scale(1.25); }
+    }
+
+    /* Hero inner layout */
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1140px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid rgba(241,90,36,.45);
+      color: var(--orange);
+      background: rgba(241,90,36,.08);
+      padding: .38rem 1rem;
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(.75); }
+    }
+    .hero h1 {
+      font-size: clamp(3.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 5px;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 .l1 { color: rgba(255,255,255,.92); display: block; }
+    .hero h1 .l2 {
+      color: var(--orange);
+      display: block;
+      text-shadow: 0 0 80px rgba(241,90,36,.45);
+    }
+    .hero-tagline {
+      color: rgba(255,255,255,.65);
+      font-size: 1.1rem;
+      line-height: 1.65;
+      margin-bottom: 1.6rem;
+    }
+    .hero-orgs {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-bottom: 2.75rem;
+      flex-wrap: wrap;
+    }
+    .hero-orgs .org  { color: rgba(255,255,255,.8); font-size: .875rem; font-weight: 600; }
+    .hero-orgs .sep  { color: var(--orange); font-size: 1.1rem; font-weight: 900; }
+    .hero-actions { display: flex; gap: .85rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .88rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: 0 4px 22px rgba(241,90,36,.45);
+    }
+    .btn-primary:hover { background: var(--orange-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(241,90,36,.55); }
+    .btn-ghost {
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.85);
+      border: 1.5px solid rgba(255,255,255,.18);
+      padding: .88rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.35); }
+
+    /* Glassmorphism card on the right */
+    .hero-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+    .hc-label {
+      color: rgba(255,255,255,.4);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .hc-stats {
+      display: flex;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .hcs {
+      flex: 1;
+      background: rgba(255,255,255,.07);
+      border-radius: 12px;
+      padding: 1rem .5rem;
+      text-align: center;
+    }
+    .hcs-n { display: block; font-size: 1.6rem; font-weight: 900; color: var(--orange); line-height: 1; }
+    .hcs-l { display: block; font-size: .68rem; color: rgba(255,255,255,.45); margin-top: .2rem; }
+    .hc-divider { height: 1px; background: rgba(255,255,255,.08); margin-bottom: 1.1rem; }
+    .hc-sessions { display: flex; flex-direction: column; gap: .1rem; }
+    .hcs-row {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .55rem .6rem;
+      border-radius: 8px;
+      transition: background .15s;
+    }
+    .hcs-row:hover { background: rgba(255,255,255,.06); }
+    .hcs-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; flex-shrink: 0; opacity: .8; }
+    .hcs-time { color: rgba(255,255,255,.35); font-size: .7rem; width: 78px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+    .hcs-name { color: rgba(255,255,255,.75); font-size: .8rem; font-weight: 600; }
+
+    /* Stats bar */
+    .home-stats {
+      background: var(--navy);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hstat {
+      padding: 1.6rem 3.5rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .hstat:last-child { border-right: none; }
+    .hstat-n { display: block; font-size: 1.8rem; font-weight: 900; color: var(--orange); line-height: 1; }
+    .hstat-l { display: block; font-size: .72rem; color: rgba(255,255,255,.45); margin-top: .3rem; letter-spacing: .5px; font-weight: 500; }
+
+    /* Speakers */
+    .home-spk {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+    }
+    .hsec-label {
+      color: var(--orange);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
+    .hsec-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+    .hsec-title span { color: var(--orange); }
+    .spk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.1rem;
+    }
+    .spk-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 1.4rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .spk-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), #ff8c5a);
+    }
+    .spk-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
+    .spk-av {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; font-weight: 900;
+      flex-shrink: 0;
+      letter-spacing: -1px;
+    }
+    .av-1  { background: linear-gradient(135deg,#F15A24,#FF8C42); }
+    .av-2  { background: linear-gradient(135deg,#2563EB,#60A5FA); }
+    .av-3  { background: linear-gradient(135deg,#7C3AED,#A78BFA); }
+    .av-4  { background: linear-gradient(135deg,#0891B2,#22D3EE); }
+    .av-5  { background: linear-gradient(135deg,#059669,#34D399); }
+    .av-6  { background: linear-gradient(135deg,#D97706,#FCD34D); }
+    .av-7  { background: linear-gradient(135deg,#DB2777,#F9A8D4); }
+    .spk-info h3 { font-size: .93rem; font-weight: 700; color: var(--navy); line-height: 1.25; }
+    .spk-title   { font-size: .77rem; color: var(--muted); margin-top: .18rem; }
+    .spk-company { font-size: .77rem; color: var(--orange); font-weight: 600; margin-top: .1rem; }
+    .spk-badge {
+      display: inline-block;
+      background: #FFF5F0;
+      color: var(--orange);
+      padding: .14rem .5rem;
+      border-radius: 4px;
+      font-size: .68rem;
+      font-weight: 700;
+      margin-top: .45rem;
+      letter-spacing: .3px;
+    }
+
+    /* Raffle CTA */
+    .home-cta {
+      background: linear-gradient(135deg, #E84E1B 0%, var(--orange) 50%, #FF8C42 100%);
+      padding: 4.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .home-cta::after {
+      content: '';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,.07);
+      border-radius: 50%;
+    }
+    .cta-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .cta-ico { font-size: 3.5rem; flex-shrink: 0; filter: drop-shadow(0 4px 12px rgba(0,0,0,.2)); }
+    .cta-txt { flex: 1; min-width: 220px; }
+    .cta-txt h2 { color: #fff; font-size: 1.5rem; font-weight: 900; margin-bottom: .35rem; line-height: 1.2; }
+    .cta-txt p  { color: rgba(255,255,255,.82); font-size: .9rem; line-height: 1.6; }
+    .btn-white {
+      background: #fff;
+      color: var(--orange);
+      border: none;
+      padding: .95rem 2.2rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: .95rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .2s;
+      box-shadow: 0 4px 18px rgba(0,0,0,.18);
+      flex-shrink: 0;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.22); }
+
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-card  { display: none; }
+      .hero { min-height: unset; padding: 5rem 1.5rem 4rem; }
+      .hero h1 { font-size: clamp(3rem,12vw,5rem); }
+    }
+    @media (max-width: 600px) {
+      .hstat { padding: 1.25rem 2rem; }
+      .cta-inner { flex-direction: column; text-align: center; }
+      .cta-ico { font-size: 2.5rem; }
+    }
+
+    /* ── PROGRAM ──────────────────────────── */
+    .program-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+    .sched-row {
+      display: flex;
+      gap: 1.25rem;
+      margin-bottom: .9rem;
+      align-items: flex-start;
+    }
+    .sched-time {
+      background: var(--navy);
+      color: #fff;
+      padding: .5rem .9rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .78rem;
+      white-space: nowrap;
+      min-width: 115px;
+      text-align: center;
+      margin-top: 2px;
+    }
+    .sched-card {
+      flex: 1;
+      background: var(--card);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      border-left: 4px solid var(--border);
+    }
+    .sched-card.session  { border-left-color: var(--orange); }
+    .sched-card.kayit    { border-left-color: var(--green); }
+    .sched-card.break    { border-left-color: #CBD5E1; background: #F8FAFC; }
+    .sched-card.network  { border-left-color: var(--blue); }
+    .sched-card h3 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .sched-card.break h3 { color: var(--muted); font-weight: 600; }
+    .session-num {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      padding: .15rem .55rem;
+      border-radius: 4px;
+      font-size: .7rem;
+      font-weight: 800;
+      margin-bottom: .3rem;
+      letter-spacing: .5px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
+    .chip {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .35rem .75rem;
+      font-size: .78rem;
+    }
+    .chip strong { display: block; color: var(--navy); font-weight: 700; }
+    .chip span   { color: var(--muted); }
+
+    /* ── KATILIM ──────────────────────────── */
+    .katilim-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .session-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.75rem;
+    }
+    .stab {
+      padding: .55rem 1.15rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .85rem;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .stab.open     { border-color: var(--green); color: var(--green); background: #F0FDF4; }
+    .stab.selected { border-color: var(--navy); color: var(--navy); background: #EFF6FF; }
+    .stab.open.selected { border-color: var(--green); color: var(--navy); background: #F0FDF4; }
+
+    .att-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+    .att-card h3  { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: .3rem; }
+    .att-card .meta {
+      color: var(--muted);
+      font-size: .875rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-group { margin-bottom: 1.15rem; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: .875rem;
+      margin-bottom: .35rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: .7rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus { border-color: var(--blue); }
+    .submit-btn {
+      width: 100%;
+      padding: .9rem;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: .25rem;
+      transition: background .2s;
+    }
+    .submit-btn:hover    { background: var(--orange-d); }
+    .submit-btn:disabled { background: #94A3B8; cursor: not-allowed; }
+    .msg-ok  { background: #F0FDF4; border: 1px solid #86EFAC; color: #166534; padding: .9rem; border-radius: 8px; text-align: center; font-weight: 600; margin-top: .75rem; }
+    .msg-err { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; padding: .9rem; border-radius: 8px; text-align: center; font-weight: 600; margin-top: .75rem; }
+    .inactive-box {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+    }
+    .inactive-box .ico { font-size: 3rem; margin-bottom: .75rem; }
+    .inactive-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: .4rem; }
+
+    /* ── ADMIN ────────────────────────────── */
+    .admin-login-wrap {
+      max-width: 420px;
+      margin: 5rem auto;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      text-align: center;
+    }
+    .admin-login-wrap h2 { color: var(--navy); font-size: 1.4rem; font-weight: 800; margin-bottom: .35rem; }
+    .admin-login-wrap p  { color: var(--muted); margin-bottom: 2rem; font-size: .9rem; }
+
+    .admin-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .admin-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+    .admin-top h2 { color: var(--navy); font-size: 1.2rem; font-weight: 800; }
+    .logout-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: .45rem 1.1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .85rem;
+    }
+
+    .admin-sess-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: .85rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-sess-info h3 { font-size: .95rem; font-weight: 700; color: var(--navy); }
+    .admin-sess-info p  { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+    .admin-sess-actions { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
+
+    .badge-active   { background: #D1FAE5; color: #065F46; padding: .25rem .75rem; border-radius: 50px; font-size: .75rem; font-weight: 700; }
+    .badge-inactive { background: #F1F5F9; color: var(--muted); padding: .25rem .75rem; border-radius: 50px; font-size: .75rem; font-weight: 700; }
+    .count-badge    { background: var(--bg); color: var(--navy); padding: .4rem .9rem; border-radius: 8px; font-weight: 700; font-size: .85rem; }
+
+    .btn-activate   { background: var(--green); color: #fff; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: .85rem; cursor: pointer; transition: opacity .2s; }
+    .btn-deactivate { background: var(--red);   color: #fff; border: none; padding: .5rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: .85rem; cursor: pointer; transition: opacity .2s; }
+    .btn-activate:hover, .btn-deactivate:hover { opacity: .88; }
+    .btn-view       { background: var(--navy); color: #fff; border: none; padding: .5rem 1rem; border-radius: 8px; font-weight: 600; font-size: .82rem; cursor: pointer; transition: background .2s; }
+    .btn-view:hover { background: var(--navy-d); }
+
+    /* Raffle box */
+    .raffle-box {
+      background: linear-gradient(135deg, var(--navy-d), #173566);
+      border-radius: 16px;
+      padding: 2rem;
+      color: #fff;
+      margin-top: 2.5rem;
+    }
+    .raffle-box h2 { color: var(--orange); font-size: 1.4rem; font-weight: 900; margin-bottom: .25rem; }
+    .raffle-box .sub { color: rgba(255,255,255,.6); font-size: .85rem; margin-bottom: 1.25rem; }
+    .raffle-item {
+      background: rgba(255,255,255,.1);
+      border-radius: 8px;
+      padding: .7rem 1rem;
+      margin-bottom: .5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .raffle-item .rname { font-weight: 700; }
+    .raffle-item .remail { color: rgba(255,255,255,.65); font-size: .82rem; }
+    .raffle-item .tick { color: var(--orange); font-weight: 800; font-size: .85rem; }
+    .export-btn {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 1.25rem;
+      transition: background .2s;
+    }
+    .export-btn:hover { background: var(--orange-d); }
+    .raffle-empty { color: rgba(255,255,255,.45); font-style: italic; padding: 1rem 0; }
+
+    /* ── MODAL ────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 92%;
+      max-width: 520px;
+      max-height: 82vh;
+      overflow-y: auto;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .modal-head h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .modal-close { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--muted); line-height: 1; }
+    .att-row {
+      display: flex;
+      justify-content: space-between;
+      padding: .55rem 0;
+      border-bottom: 1px solid var(--bg);
+      font-size: .875rem;
+    }
+    .att-row:last-child { border-bottom: none; }
+    .att-row .idx { color: #94A3B8; font-size: .75rem; margin-right: .4rem; }
+    .att-row .mail { color: var(--muted); }
+
+    /* ── TOAST ────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      padding: .85rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 700;
+      color: #fff;
+      font-size: .9rem;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all .3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.ok  { background: var(--green); }
+    .toast.err { background: var(--red); }
+
+    @media (max-width: 600px) {
+      .nav-link { padding: 1rem .75rem; font-size: .82rem; }
+      .sched-row { flex-direction: column; gap: .4rem; }
+      .sched-time { min-width: unset; width: fit-content; }
+      .admin-sess-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-logo">DATA<span>MIND</span></div>
+  <div class="nav-links">
+    <div class="nav-link active" data-section="home"    onclick="nav(this,'home')">Ana Sayfa</div>
+    <div class="nav-link"        data-section="program" onclick="nav(this,'program')">Program</div>
+    <div class="nav-link"        data-section="katilim" onclick="nav(this,'katilim')">Katılım</div>
+  </div>
+  <button class="nav-admin-btn" onclick="openAdmin()">Admin</button>
+</nav>
+
+<!-- ═══════════════════ HOME ═══════════════════ -->
+<section id="s-home" class="section active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="hero-inner">
+      <!-- Left: text content -->
+      <div class="hero-left">
+        <div class="hero-badge"><span class="badge-dot"></span>DATA SCIENCE ZİRVESİ · 2026</div>
+        <h1>
+          <span class="l1">DATA</span>
+          <span class="l2">MIND</span>
+        </h1>
+        <p class="hero-tagline">Veri Biliminin Zirvesinde<br>Buluşuyoruz</p>
+        <p class="hero-orgs">
+          <span class="org">Data Science Türkiye</span>
+          <span class="sep">×</span>
+          <span class="org">VBT — Uludağ Veri Bilimi Topluluğu</span>
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="goTo('katilim')">Katılım Formu</button>
+          <button class="btn-ghost"   onclick="goTo('program')">Programı Gör →</button>
+        </div>
+      </div>
+
+      <!-- Right: glassmorphism info card -->
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hc-label">Etkinlik Özeti</div>
+          <div class="hc-stats">
+            <div class="hcs"><span class="hcs-n">7</span><span class="hcs-l">Konuşmacı</span></div>
+            <div class="hcs"><span class="hcs-n">5</span><span class="hcs-l">Oturum</span></div>
+            <div class="hcs"><span class="hcs-n">8h</span><span class="hcs-l">Süre</span></div>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-sessions">
+            <div class="hcs-row"><div class="hcs-dot"></div><div class="hcs-time">10:00–10:45</div><div class="hcs-name">Oturum 1</div></div>
+            <div class="hcs-row"><div class="hcs-dot"></div><div class="hcs-time">11:00–11:45</div><div class="hcs-name">Oturum 2</div></div>
+            <div class="hcs-row"><div class="hcs-dot"></div><div class="hcs-time">12:45–13:30</div><div class="hcs-name">Oturum 3</div></div>
+            <div class="hcs-row"><div class="hcs-dot"></div><div class="hcs-time">13:45–14:30</div><div class="hcs-name">Oturum 4</div></div>
+            <div class="hcs-row"><div class="hcs-dot"></div><div class="hcs-time">14:45–15:30</div><div class="hcs-name">Oturum 5</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="home-stats">
+    <div class="hstat"><span class="hstat-n">7</span><span class="hstat-l">Konuşmacı</span></div>
+    <div class="hstat"><span class="hstat-n">5</span><span class="hstat-l">Oturum</span></div>
+    <div class="hstat"><span class="hstat-n">09:00</span><span class="hstat-l">Başlangıç</span></div>
+    <div class="hstat"><span class="hstat-n">17:00</span><span class="hstat-l">Bitiş</span></div>
+  </div>
+
+  <!-- SPEAKERS -->
+  <div class="home-spk">
+    <div class="hsec-label">Konuşmacılar</div>
+    <h2 class="hsec-title">Alanında uzman <span>7 isimle</span> buluşun</h2>
+    <div class="spk-grid">
+      <div class="spk-card">
+        <div class="spk-av av-1">ED</div>
+        <div class="spk-info">
+          <h3>Emre Doğan</h3>
+          <div class="spk-title">Senior Data Scientist</div>
+          <div class="spk-company">Experian</div>
+          <span class="spk-badge">Oturum 1</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-2">ED</div>
+        <div class="spk-info">
+          <h3>Emin Doğan</h3>
+          <div class="spk-title">Senior Data Scientist</div>
+          <div class="spk-company">Hepsiburada</div>
+          <span class="spk-badge">Oturum 1</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-3">KA</div>
+        <div class="spk-info">
+          <h3>Kerimcan Arslan</h3>
+          <div class="spk-title">Data Scientist</div>
+          <div class="spk-company">TOM</div>
+          <span class="spk-badge">Oturum 1</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-4">TO</div>
+        <div class="spk-info">
+          <h3>Tuğser Okur</h3>
+          <div class="spk-title">Chief of Electronic R&amp;D</div>
+          <div class="spk-company">Lentatek</div>
+          <span class="spk-badge">Oturum 2</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-5">AT</div>
+        <div class="spk-info">
+          <h3>Alper Tunga</h3>
+          <div class="spk-title">Founder &amp; CTO</div>
+          <div class="spk-company">Oricin</div>
+          <span class="spk-badge">Oturum 3</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-6">BA</div>
+        <div class="spk-info">
+          <h3>Burak Celal Akyüz</h3>
+          <div class="spk-title">Instructor</div>
+          <div class="spk-company">Udemy</div>
+          <span class="spk-badge">Oturum 4</span>
+        </div>
+      </div>
+      <div class="spk-card">
+        <div class="spk-av av-7">KY</div>
+        <div class="spk-info">
+          <h3>Kaan Can Yılmaz</h3>
+          <div class="spk-title">Founder &amp; CEO</div>
+          <div class="spk-company">Ucanbie Technology</div>
+          <span class="spk-badge">Oturum 5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RAFFLE CTA -->
+  <div class="home-cta">
+    <div class="cta-inner">
+      <div class="cta-ico">🎁</div>
+      <div class="cta-txt">
+        <h2>Tüm Oturumlara Katıl,<br>Çekilişe Gir!</h2>
+        <p>5 oturumun hepsine katılan katılımcılar özel hediyeler için çekilişe dahil edilecek.</p>
+      </div>
+      <button class="btn-white" onclick="goTo('katilim')">Katılım Formuna Git →</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════ PROGRAM ═══════════════════ -->
+<section id="s-program" class="section">
+  <div class="sec-header orange">
+    <h2>PROGRAM</h2>
+    <p>Etkinlik akışı ve konuşmacılar</p>
+  </div>
+  <div class="program-wrap">
+
+    <div class="sched-row">
+      <div class="sched-time">09:00 – 10:00</div>
+      <div class="sched-card kayit"><h3>Kayıt &amp; Karşılama</h3></div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">10:00 – 10:45</div>
+      <div class="sched-card session">
+        <span class="session-num">OTURUM 1</span>
+        <h3>Açılış Oturumu</h3>
+        <div class="chips">
+          <div class="chip"><strong>Emre Doğan</strong><span>Senior Data Scientist · Experian</span></div>
+          <div class="chip"><strong>Emin Doğan</strong><span>Senior Data Scientist · Hepsiburada</span></div>
+          <div class="chip"><strong>Kerimcan Arslan</strong><span>Data Scientist · TOM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">10:45 – 11:00</div>
+      <div class="sched-card break"><h3>Ara</h3></div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">11:00 – 11:45</div>
+      <div class="sched-card session">
+        <span class="session-num">OTURUM 2</span>
+        <div class="chips" style="margin-top:.15rem">
+          <div class="chip"><strong>Tuğser Okur</strong><span>Chief of Electronic R&amp;D · Lentatek</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">11:45 – 12:45</div>
+      <div class="sched-card break"><h3>Öğle Molası</h3></div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">12:45 – 13:30</div>
+      <div class="sched-card session">
+        <span class="session-num">OTURUM 3</span>
+        <div class="chips" style="margin-top:.15rem">
+          <div class="chip"><strong>Alper Tunga</strong><span>Founder &amp; CTO · Oricin</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">13:30 – 13:45</div>
+      <div class="sched-card break"><h3>Ara</h3></div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">13:45 – 14:30</div>
+      <div class="sched-card session">
+        <span class="session-num">OTURUM 4</span>
+        <div class="chips" style="margin-top:.15rem">
+          <div class="chip"><strong>Burak Celal Akyüz</strong><span>Instructor · Udemy</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">14:30 – 14:45</div>
+      <div class="sched-card break"><h3>Ara</h3></div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">14:45 – 15:30</div>
+      <div class="sched-card session">
+        <span class="session-num">OTURUM 5</span>
+        <div class="chips" style="margin-top:.15rem">
+          <div class="chip"><strong>Kaan Can Yılmaz</strong><span>Founder &amp; CEO · Ucanbie Technology</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sched-row">
+      <div class="sched-time">15:30 – 17:00</div>
+      <div class="sched-card network"><h3>Networking · Kahve Molası · Serbest Etkileşim</h3></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ KATILIM ═══════════════════ -->
+<section id="s-katilim" class="section">
+  <div class="sec-header orange">
+    <h2>OTURUM KATILIMI</h2>
+    <p>Oturum sonunda formu doldurun — 5/5 tamamla, çekilişe katıl!</p>
+  </div>
+  <div class="katilim-wrap">
+    <div class="session-tabs" id="tabs"></div>
+    <div id="att-content"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ADMIN ═══════════════════ -->
+<section id="s-admin" class="section">
+  <div class="sec-header navy">
+    <h2>YÖNETİM PANELİ</h2>
+    <p>Oturumları aktif edin ve katılımları takip edin</p>
+  </div>
+
+  <!-- Login -->
+  <div id="admin-login">
+    <div class="admin-login-wrap">
+      <h2>🔐 Admin Girişi</h2>
+      <p>Yönetim paneline erişmek için admin hesabı ile giriş yapın</p>
+      <div class="form-group">
+        <label>Admin e-posta</label>
+        <input type="email" id="admin-email" placeholder="admin@ornek.com" required
+               onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <div class="form-group">
+        <label>Şifre</label>
+        <input type="password" id="pw-input" placeholder="Şifre" required
+               onkeydown="if(event.key==='Enter')doLogin()" />
+      </div>
+      <button class="submit-btn" onclick="doLogin()">Giriş Yap</button>
+      <div id="login-err" class="msg-err" style="display:none;margin-top:.75rem">Giriş başarısız!</div>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div id="admin-panel" style="display:none">
+    <div class="admin-wrap">
+      <div class="admin-top">
+        <h2>Oturumlar</h2>
+        <button class="logout-btn" onclick="doLogout()">Çıkış</button>
+      </div>
+      <div id="admin-sess-list">Yükleniyor…</div>
+
+      <!-- Raffle -->
+      <div class="raffle-box">
+        <h2>🎁 Çekiliş Listesi</h2>
+        <p class="sub">5 oturumun hepsine katılan kişiler</p>
+        <div id="raffle-content"><p class="raffle-empty">Yükleniyor…</p></div>
+        <button class="export-btn" onclick="exportCSV()">⬇ CSV Olarak İndir</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MODAL ═══════════════════ -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modal-title">Katılımcılar</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════ SCRIPT ═══════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ─── Config ──────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://iuvvrxtjhwxdfblmmdjz.supabase.co';
+const SUPABASE_KEY  = 'sb_publishable_r2e1WZuW89oDBgCUOoYOpQ_JOBEl1B2';
+
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ─── State ───────────────────────────────────────────────────
+let sessions       = [];
+let selSessionId   = null;
+let isAdmin        = false;
+let rafflePeople   = [];
+
+// ─── Navigation ──────────────────────────────────────────────
+function goTo(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('s-' + name).classList.add('active');
+  const link = document.querySelector(`[data-section="${name}"]`);
+  if (link) link.classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'katilim') initKatilim();
+  if (name === 'admin' && isAdmin) loadAdminPanel();
+}
+
+function nav(el, name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('s-' + name).classList.add('active');
+  el.classList.add('active');
+  if (name === 'katilim') initKatilim();
+  if (name === 'admin' && isAdmin) loadAdminPanel();
+}
+
+function openAdmin() {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('s-admin').classList.add('active');
+  setAdminUI(isAdmin);
+  if (isAdmin) loadAdminPanel();
+}
+
+// ─── Sessions loader ─────────────────────────────────────────
+async function fetchSessions() {
+  const { data, error } = await db.from('sessions').select('*').order('id');
+  if (!error && data) sessions = data;
+  return sessions;
+}
+
+// ─── KATILIM page ────────────────────────────────────────────
+async function initKatilim() {
+  await fetchSessions();
+  // Auto-select first active session, otherwise first session
+  if (!selSessionId) {
+    const active = sessions.find(s => s.is_active);
+    selSessionId = active ? active.id : (sessions[0]?.id ?? null);
+  }
+  renderTabs();
+  renderForm();
+}
+
+function renderTabs() {
+  const wrap = document.getElementById('tabs');
+  wrap.innerHTML = sessions.map(s => {
+    let cls = 'stab';
+    if (s.is_active)          cls += ' open';
+    if (s.id === selSessionId) cls += ' selected';
+    return `<button class="${cls}" onclick="selectTab(${s.id})">
+      ${s.name}${s.is_active ? ' ✓' : ''}
+    </button>`;
+  }).join('');
+}
+
+function selectTab(id) {
+  selSessionId = id;
+  renderTabs();
+  renderForm();
+}
+
+function renderForm() {
+  const sess = sessions.find(s => s.id === selSessionId);
+  const wrap = document.getElementById('att-content');
+  if (!sess) { wrap.innerHTML = ''; return; }
+
+  if (!sess.is_active) {
+    wrap.innerHTML = `
+      <div class="att-card">
+        <div class="inactive-box">
+          <div class="ico">🔒</div>
+          <h3>Bu oturum henüz aktif değil</h3>
+          <p>Katılım formu, oturum bittikten sonra admin tarafından açılacaktır.</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  wrap.innerHTML = `
+    <div class="att-card">
+      <h3>${sess.name}</h3>
+      <p class="meta">🎤 ${sess.speaker} &nbsp;|&nbsp; 🏢 ${sess.company} &nbsp;|&nbsp; 🕐 ${sess.start_time} – ${sess.end_time}</p>
+      <form id="att-form" onsubmit="submitForm(event,${sess.id})">
+        <div class="form-group">
+          <label>Ad *</label>
+          <input type="text" id="f-fname" placeholder="Adınız" required />
+        </div>
+        <div class="form-group">
+          <label>Soyad *</label>
+          <input type="text" id="f-lname" placeholder="Soyadınız" required />
+        </div>
+        <div class="form-group">
+          <label>E-posta *</label>
+          <input type="email" id="f-email" placeholder="adres@ornek.com" required />
+        </div>
+        <button type="submit" class="submit-btn" id="f-btn">Katılımı Kaydet</button>
+        <div id="f-msg"></div>
+      </form>
+    </div>`;
+}
+
+async function submitForm(e, sessionId) {
+  e.preventDefault();
+  const fname = document.getElementById('f-fname').value.trim();
+  const lname = document.getElementById('f-lname').value.trim();
+  const email = document.getElementById('f-email').value.trim().toLowerCase();
+  const btn   = document.getElementById('f-btn');
+  const msg   = document.getElementById('f-msg');
+
+  btn.disabled    = true;
+  btn.textContent = 'Kaydediliyor…';
+
+  const { error } = await db.from('attendances').insert({
+    session_id: sessionId,
+    first_name: fname,
+    last_name:  lname,
+    email:      email
+  });
+
+  if (error) {
+    if (error.code === '23505') {
+      msg.innerHTML = '<div class="msg-err">Bu e-posta bu oturum için zaten kayıtlı.</div>';
+    } else {
+      msg.innerHTML = `<div class="msg-err">Bir hata oluştu. Lütfen tekrar deneyin.</div>`;
+    }
+    btn.disabled    = false;
+    btn.textContent = 'Katılımı Kaydet';
+  } else {
+    msg.innerHTML   = '<div class="msg-ok">✅ Katılımınız başarıyla kaydedildi!</div>';
+    btn.textContent = '✓ Kaydedildi';
+    document.getElementById('f-fname').value = '';
+    document.getElementById('f-lname').value = '';
+    document.getElementById('f-email').value = '';
+    setTimeout(() => {
+      btn.disabled    = false;
+      btn.textContent = 'Katılımı Kaydet';
+      msg.innerHTML   = '';
+    }, 3500);
+  }
+}
+
+// ─── ADMIN ───────────────────────────────────────────────────
+function setAdminUI(showPanel) {
+  document.getElementById('admin-login').style.display  = showPanel ? 'none' : 'block';
+  document.getElementById('admin-panel').style.display  = showPanel ? 'block' : 'none';
+}
+
+async function checkAdminRole(userId) {
+  const { data, error } = await db
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', userId)
+    .single();
+  if (error) return false;
+  return data?.role === 'admin';
+}
+
+async function initAuth() {
+  isAdmin = false;
+  setAdminUI(false);
+
+  try {
+    const { data: { user } } = await db.auth.getUser();
+    if (!user) return;
+
+    isAdmin = await checkAdminRole(user.id);
+    setAdminUI(isAdmin);
+  } catch (e) {
+    isAdmin = false;
+    setAdminUI(false);
+  }
+}
+
+async function doLogin() {
+  const email = document.getElementById('admin-email').value.trim().toLowerCase();
+  const pw = document.getElementById('pw-input').value;
+  const el = document.getElementById('login-err');
+
+  el.style.display = 'none';
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password: pw
+  });
+
+  if (error || !data?.user) {
+    el.textContent = 'Giriş başarısız! Email veya şifreyi kontrol edin.';
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2500);
+    return;
+  }
+
+  const admin = await checkAdminRole(data.user.id);
+  if (!admin) {
+    await db.auth.signOut();
+    isAdmin = false;
+    setAdminUI(false);
+    el.textContent = 'Bu hesap admin değil.';
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 2500);
+    return;
+  }
+
+  isAdmin = true;
+  setAdminUI(true);
+  document.getElementById('pw-input').value = '';
+  await loadAdminPanel();
+}
+
+async function doLogout() {
+  isAdmin = false;
+  setAdminUI(false);
+  document.getElementById('pw-input').value = '';
+  document.getElementById('admin-email').value = '';
+
+  try {
+    await db.auth.signOut();
+  } catch (e) {
+    // Ignore
+  }
+}
+
+async function loadAdminPanel() {
+  await fetchSessions();
+  await renderAdminList();
+  await loadRaffle();
+}
+
+async function renderAdminList() {
+  // Fetch counts
+  const { data: rows } = await db.from('attendances').select('session_id');
+  const counts = {};
+  (rows || []).forEach(r => { counts[r.session_id] = (counts[r.session_id] || 0) + 1; });
+
+  const wrap = document.getElementById('admin-sess-list');
+  wrap.innerHTML = sessions.map(s => `
+    <div class="admin-sess-card">
+      <div class="admin-sess-info">
+        <h3>${s.name}</h3>
+        <p>🎤 ${s.speaker} &nbsp;|&nbsp; 🕐 ${s.start_time} – ${s.end_time}</p>
+      </div>
+      <div class="admin-sess-actions">
+        <span class="${s.is_active ? 'badge-active' : 'badge-inactive'}">${s.is_active ? '● Aktif' : '○ Pasif'}</span>
+        <span class="count-badge">👤 ${counts[s.id] || 0} kişi</span>
+        <button class="btn-view" onclick="viewList(${s.id},'${escHtml(s.name)}')">Listele</button>
+        <button class="${s.is_active ? 'btn-deactivate' : 'btn-activate'}"
+                onclick="toggleSess(${s.id},${s.is_active})">
+          ${s.is_active ? 'Kapat' : 'Aktif Et'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function toggleSess(id, current) {
+  const { error } = await db.from('sessions').update({ is_active: !current }).eq('id', id);
+  if (!error) {
+    toast(current ? 'Oturum kapatıldı' : 'Oturum aktif edildi!', 'ok');
+    await loadAdminPanel();
+  } else {
+    toast('Hata: ' + error.message, 'err');
+  }
+}
+
+async function viewList(sessionId, sessionName) {
+  const { data } = await db.from('attendances')
+    .select('*').eq('session_id', sessionId).order('created_at');
+  const list = data || [];
+  document.getElementById('modal-title').textContent = `${sessionName} — ${list.length} Katılımcı`;
+  document.getElementById('modal-body').innerHTML = list.length === 0
+    ? '<p style="color:var(--muted);text-align:center;padding:2rem 0">Henüz katılımcı yok.</p>'
+    : list.map((a, i) => `
+        <div class="att-row">
+          <div><span class="idx">${i+1}.</span><strong>${a.first_name} ${a.last_name}</strong></div>
+          <div class="mail">${a.email}</div>
+        </div>`).join('');
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+async function loadRaffle() {
+  if (!sessions.length) return;
+  const total = sessions.length;
+  const { data } = await db.from('attendances').select('first_name,last_name,email,session_id');
+  if (!data) return;
+
+  const map = {};
+  data.forEach(r => {
+    if (!map[r.email]) map[r.email] = { fn: r.first_name, ln: r.last_name, ids: new Set() };
+    map[r.email].ids.add(r.session_id);
+  });
+
+  rafflePeople = Object.entries(map)
+    .filter(([, v]) => v.ids.size === total)
+    .map(([email, v]) => ({ email, fn: v.fn, ln: v.ln }));
+
+  const box = document.getElementById('raffle-content');
+  if (!rafflePeople.length) {
+    box.innerHTML = '<p class="raffle-empty">Henüz tüm oturumlara katılan kişi yok.</p>';
+  } else {
+    box.innerHTML = rafflePeople.map((p, i) => `
+      <div class="raffle-item">
+        <div>
+          <div class="rname">${i+1}. ${p.fn} ${p.ln}</div>
+          <div class="remail">${p.email}</div>
+        </div>
+        <div class="tick">✓ ${total}/${total}</div>
+      </div>`).join('');
+  }
+}
+
+function exportCSV() {
+  if (!rafflePeople.length) { toast('Çekiliş listesi boş', 'err'); return; }
+  const csv = 'Ad,Soyad,E-posta\n' +
+    rafflePeople.map(p => `${p.fn},${p.ln},${p.email}`).join('\n');
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })),
+    download: 'datamind_cekilis.csv'
+  });
+  a.click();
+}
+
+// ─── Real-time: auto-refresh katılım when session toggles ────
+function setupRealtime() {
+  db.channel('session-watch')
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'sessions' }, () => {
+      if (document.getElementById('s-katilim').classList.contains('active')) initKatilim();
+    })
+    .subscribe();
+}
+
+// ─── Helpers ─────────────────────────────────────────────────
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function escHtml(str) {
+  return str.replace(/'/g, "\\'");
+}
+
+// ─── Init ─────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  fetchSessions();
+  setupRealtime();
+  initAuth();
+});
+</script>
+</body>
+</html>
